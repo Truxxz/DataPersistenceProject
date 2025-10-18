@@ -1,41 +1,29 @@
-using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
-    public static MainManager instance;
 
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public TextMeshProUGUI bestScore;
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
     
     private bool m_GameOver = false;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        Destroy(gameObject);
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        bestScore.text = "Best Score : " + SaveManager.instance.playerBestName + " : " + SaveManager.instance.m_bestScore;
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -86,34 +74,9 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-    }
-
-    [Serializable]
-    class SaveData
-    {
-        public int BestScore;
-    }
-
-    public void SaveBestScore()
-    {
-        SaveData data = new SaveData();
-        data.BestScore = m_Points;
-
-        string json = JsonUtility.ToJson(data);
-
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-    }
-
-    public void LoadBestScore()
-    {
-        string path = Application.persistentDataPath + "/savefile.json";
-
-        if (File.Exists(path))
+        if(m_Points >= SaveManager.instance.m_bestScore)
         {
-            string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-            m_Points = data.BestScore;
+            SaveManager.instance.SaveBestScore(m_Points, SaveManager.instance.playerName);
         }
     }
 }

@@ -678,11 +678,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 8eee7976-478b-45d2-8b24-94bf1c9b0a35
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: DataPersistenceProject
+  organizationId: projectninko
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0
