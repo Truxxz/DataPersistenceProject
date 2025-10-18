@@ -31,14 +31,11 @@ public class SaveManager : MonoBehaviour
         public string playerName;
     }
 
-    public void SaveBestScore(int bestScore, string playerName)
+    public void SaveBestScore()
     {
         SaveData data = new SaveData();
-        data.m_bestScore = bestScore;
-        if (bestScore > m_bestScore)
-        {
-            data.playerBestName = playerName;
-        }
+        data.m_bestScore = m_bestScore;
+        data.playerBestName = playerBestName;
         data.playerName = playerName;
 
         string json = JsonUtility.ToJson(data);

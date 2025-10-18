@@ -26,13 +26,15 @@ public class MenuUIHandler : MonoBehaviour
 
     public void StartNew()
     {
-        SaveManager.instance.SaveBestScore(SaveManager.instance.m_bestScore, playerName.text.ToString());
+        SaveManager.instance.playerName = playerName.text;
+        SaveManager.instance.SaveBestScore();
         SceneManager.LoadScene(1);
     }
 
     public void Exit()
     {
-        SaveManager.instance.SaveBestScore(SaveManager.instance.m_bestScore, playerName.text.ToString());
+        SaveManager.instance.playerName = playerName.text;
+        SaveManager.instance.SaveBestScore();
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
